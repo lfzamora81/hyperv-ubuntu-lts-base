@@ -2,6 +2,7 @@ pipeline {
     agent any
     stages {
         stage('Download') {
+            when { not { fileExists 'focal-server-cloudimg-amd64-azure.vhd.zip' } }
             steps {
                 powershell '''
                     # Source file location
@@ -20,7 +21,7 @@ pipeline {
         }
         stage('Convert') {
             steps {
-                powershell 'Convert-VHD -Path .\\focal-server-cloudimg-amd64-azure.vhd -DestinationPath .\\focal-server-cloudimg-amd64-azure.vhdx'
+                powershell 'Convert-VHD -Path .\\livecd.ubuntu-cpc.azure.vhd -DestinationPath .\\livecd.ubuntu-cpc.azure.vhdx'
             }
         }
     }
