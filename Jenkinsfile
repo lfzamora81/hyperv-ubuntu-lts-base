@@ -2,7 +2,7 @@ pipeline {
     agent any
     stages {
         stage('Download') {
-            when { not { fileExists 'focal-server-cloudimg-amd64-azure.vhd.zip' } }
+            when { not { fileExists (file:'focal-server-cloudimg-amd64-azure.vhd.zip') } }
             steps {
                 powershell '''
                     # Source file location
