@@ -1,8 +1,11 @@
 pipeline {
     agent any
+    environment {
+        ZIP_FILE = fileExists 'focal-server-cloudimg-amd64-azure.vhd.zip'
+    }
     stages {
         stage('Download') {
-            when { not { fileExists (file:'focal-server-cloudimg-amd64-azure.vhd.zip') } }
+            when { expression { ZIP_FILE == 'false'} }
             steps {
                 powershell '''
                     # Source file location
