@@ -29,7 +29,7 @@ pipeline {
             steps {
                 powershell '''
                     Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process -Force
-                    Convert-VHD -ComputerName zam-pc-01.corp.lennonzamora.com -Credential $credential -Path .\\livecd.ubuntu-cpc.azure.vhd -DestinationPath .\\livecd.ubuntu-cpc.azure.vhdx
+                    Convert-VHD -Path .\\livecd.ubuntu-cpc.azure.vhd -DestinationPath .\\livecd.ubuntu-cpc.azure.vhdx
                 '''
             }
         }
