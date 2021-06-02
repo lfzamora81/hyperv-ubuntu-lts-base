@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         ZIP_FILE = fileExists 'focal-server-cloudimg-amd64-azure.vhd.zip'
+        VHD_FILE = fileExists 'livecd.ubuntu-cpc.azure.vhd'
         PS_CRED = credentials('winAdmin')
     }
     stages {
@@ -19,6 +20,7 @@ pipeline {
             }
         }
         stage('Unzip') {
+            when { expression { VHD_FILE == 'false'} }
             steps {
                 bat 'tar -xf focal-server-cloudimg-amd64-azure.vhd.zip'
             }
@@ -26,8 +28,8 @@ pipeline {
         stage('Convert') {
             steps {
                 powershell '''
-                    $psPass = ConvertTo-SecureString "$PS_CRED_PSW" -AsPlainText -Force
-                    $credential = New-Object System.Management.Automation.PSCredential ("$PS_CRED_USR", $psPass)
+                    $psPass = ConvertTo-SecureString "$($env:PS_CRED_PSW)" -AsPlainText -Force
+                    $credential = New-Object System.Management.Automation.PSCredential ("$env:PS_CRED_USR", $psPass)
                     Convert-VHD -Credential $credential -Path .\\livecd.ubuntu-cpc.azure.vhd -DestinationPath .\\livecd.ubuntu-cpc.azure.vhdx
                 '''
             }
