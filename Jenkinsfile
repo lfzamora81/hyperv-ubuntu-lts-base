@@ -30,7 +30,7 @@ pipeline {
                 powershell '''
                     $psPass = ConvertTo-SecureString "$($env:PS_CRED_PSW)" -AsPlainText -Force
                     $credential = New-Object System.Management.Automation.PSCredential ("$env:PS_CRED_USR", $psPass)
-                    Convert-VHD -ComputerName localhost -Credential $credential -Path .\\livecd.ubuntu-cpc.azure.vhd -DestinationPath .\\livecd.ubuntu-cpc.azure.vhdx
+                    Convert-VHD -ComputerName zam-pc-01.corp.lennonzamora.com -Credential $credential -Path .\\livecd.ubuntu-cpc.azure.vhd -DestinationPath .\\livecd.ubuntu-cpc.azure.vhdx
                 '''
             }
         }
