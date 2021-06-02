@@ -27,10 +27,7 @@ pipeline {
         }
         stage('Convert') {
             steps {
-                powershell '''
-                    Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope Process -Force
-                    Convert-VHD -Path .\\livecd.ubuntu-cpc.azure.vhd -DestinationPath .\\livecd.ubuntu-cpc.azure.vhdx
-                '''
+                powershell 'convert.ps1'
             }
         }
     }
