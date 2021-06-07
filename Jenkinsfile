@@ -11,9 +11,9 @@ pipeline {
             steps {
                 powershell '''
                     # Source file location
-                    $source = 'https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64-azure.vhd.zip'
+                    $source = 'https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img'
                     # Destination to save the file
-                    $destination = 'focal-server-cloudimg-amd64-azure.vhd.zip'
+                    $destination = 'focal-server-cloudimg-amd64.img'
                     # Download the file
                     Invoke-WebRequest -Uri $source -OutFile $destination
                 '''
